@@ -9,12 +9,18 @@ coefplot <- function(labels, estimates, lower.inner = NULL,
     signif.dark = "#bd0017", insignif.light = "#c5dbe9", 
     insignif.medium = "#5a9ecc", insignif.dark = "#1c5ba6", ...) {
   
-  # check consistency of arguments
+ # check consistency of arguments
+ if(!is.null(lower.outer) && !is.null(upper.outer)){ 
   if (length(table(c(length(estimates), length(lower.outer), 
       length(upper.outer), length(labels)))) > 1) {
     stop("Vectors should have the same length.")
   }
-  
+  } else if(!is.null(lower.inner) && !is.null(upper.inner)){
+     if (length(table(c(length(estimates), length(lower.inner), 
+      length(upper.inner), length(labels)))) > 1) {
+    stop("Vectors should have the same length.")
+  }
+ }
   # define shortcut variables outer, mn, mx, steps, and num
   if (!is.null(lower.outer) && !is.null(upper.outer)) {
     outer <- TRUE
